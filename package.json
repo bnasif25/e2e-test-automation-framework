@@ -3,14 +3,17 @@
   "version": "1.0.0",
   "description": "Enterprise-grade test automation framework for saucedemo.com",
   "type": "module",
-  "scripts": {
-    "test": "npx playwright test",
-    "test:ui": "npx playwright test --project=chromium,firefox,webkit",
-    "test:api": "npx playwright test --grep @api",
-    "test:performance": "k6 run src/tests/performance/load-test.js",
-    "merge-reports": "npx playwright merge-reports --reporter html ./blob-reports",
-    "lint": "eslint . --ext .ts",
-    "type-check": "tsc --noEmit"
+"scripts": {
+  "test:smoke": "npx playwright test --grep @smoke --project=chromium",
+  "test:api": "npx playwright test --project=api",
+  "test:performance": "k6 run src/tests/performance/load-test.js",
+  "test:regression": "npx playwright test --grep @regression",
+  "test:ui": "npx playwright test --project=chromium,firefox,webkit",
+  "type-check": "tsc --noEmit",
+  "lint": "eslint . --ext .ts",
+  "lint:fix": "eslint . --ext .ts --fix",
+  "merge-reports": "npx playwright merge-reports --reporter html ./blob-reports"
+}
   },
   "keywords": [
     "playwright",
