@@ -1,33 +1,24 @@
-import { test as baseTest } from '@playwright/test';
+import { test as base, Page } from '@playwright/test';
 import { LoginPage } from '../pages/login-page';
-import { ProductsPage } from '../pages/products-page';
 
-// ✅ CRITICAL FIX: Add fallbacks directly in fixture (runs before config)
+// ✅ CRITICAL FIX: Local fallbacks - runs before ANY other code
 const STANDARD_USER = process.env.STANDARD_USER || 'standard_user';
 const PASSWORD = process.env.PASSWORD || 'secret_sauce';
 const LOCKED_OUT_USER = process.env.LOCKED_OUT_USER || 'locked_out_user';
-const PROBLEM_USER = process.env.PROBLEM_USER || 'problem_user';
-const PERFORMANCE_GLITCH_USER = process.env.PERFORMANCE_GLITCH_USER || 'performance_glitch_user';
 
-// Debug logging to see what's happening
+// Debug logging to see what's actually being used
 console.log('🔍 Fixture Environment Variables:');
 console.log('STANDARD_USER:', STANDARD_USER);
 console.log('PASSWORD:', PASSWORD ? '***' : 'MISSING');
 
-export const test = baseTest.extend<{
+type UserFixtures = {
   loginPage: LoginPage;
-  productsPage: ProductsPage;
   standardUserPage: Page;
-  lockedOutUserPage: Page;
-}>({
-  loginPage: async ({ page }, use) => {
-    const loginPage = new LoginPage(page);
-    await use(loginPage);
-  },
+};
 
-  productsPage: async ({ page }, use) => {
-    const productsPage = new ProductsPage(page);
-    await use(productsPage);
+export const test = base.extend<UserFixtures>({
+  loginPage: async ({ page }, use) => {
+    await use(new LoginPage(page));
   },
 
   standardUserPage: async ({ browser }, use) => {
@@ -36,26 +27,11 @@ export const test = baseTest.extend<{
     const page = await context.newPage();
     const loginPage = new LoginPage(page);
     
-    // ✅ Use local constants instead of process.env
+    // ✅ Use LOCAL constants, not process.env
     await page.goto('/');
     await loginPage.login(STANDARD_USER, PASSWORD);
     
     await use(page);
-    
-    await context.close();
-  },
-
-  lockedOutUserPage: async ({ browser }, use) => {
-    const context = await browser.newContext();
-    const page = await context.newPage();
-    const loginPage = new LoginPage(page);
-    
-    // ✅ Use local constants
-    await page.goto('/');
-    await loginPage.login(LOCKED_OUT_USER, PASSWORD);
-    
-    await use(page);
-    
     await context.close();
   },
 });
