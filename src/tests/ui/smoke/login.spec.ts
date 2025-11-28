@@ -1,4 +1,4 @@
-import { test, expect } from '../../../fixtures/test-users.fixture.js';
+import { test, expect } from '../../../fixtures/test-users.fixture';
 import { TEST_DATA } from '../../../config/test-data.js';
 
 test.describe('Login Functionality @smoke', () => {
