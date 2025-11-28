@@ -8,6 +8,19 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
+// Load default test data if env vars are missing in CI
+if (!process.env.STANDARD_USER) {
+  console.warn('⚠️  STANDARD_USER not set, using default');
+  process.env.STANDARD_USER = 'standard_user';
+}
+if (!process.env.PASSWORD) {
+  console.warn('⚠️  PASSWORD not set, using default');
+  process.env.PASSWORD = 'secret_sauce';
+}
+if (!process.env.LOCKED_OUT_USER) {
+  process.env.LOCKED_OUT_USER = 'locked_out_user';
+}
+
 export default defineConfig({
   testDir: './src/tests',
   fullyParallel: true,
