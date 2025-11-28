@@ -16,13 +16,13 @@ jobs:
       matrix:
         shardIndex: [1, 2, 3, 4]
         shardTotal: [4]
-
+    
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 # ✅ v4 upgrade
+        uses: actions/checkout@v4  # ✅ v4 upgrade
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4 # ✅ v4 upgrade
+        uses: actions/setup-node@v4  # ✅ v4 upgrade
         with:
           node-version: 20
           cache: 'npm'
@@ -42,12 +42,12 @@ jobs:
 
       - name: Upload blob report to GitHub Actions Artifacts
         if: always()
-        uses: actions/upload-artifact@v4 # ✅ v4 upgrade
+        uses: actions/upload-artifact@v4  # ✅ v4 upgrade
         with:
           name: blob-report-${{ matrix.shardIndex }}
           path: blob-report
           retention-days: 1
-          if-no-files-found: ignore # Don't fail if no report
+          if-no-files-found: ignore  # Don't fail if no report
 
   merge-reports:
     name: Merge & Upload HTML Report
@@ -56,10 +56,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 # ✅ v4 upgrade
+        uses: actions/checkout@v4  # ✅ v4 upgrade
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4 # ✅ v4 upgrade
+        uses: actions/setup-node@v4  # ✅ v4 upgrade
         with:
           node-version: 20
 
@@ -67,17 +67,17 @@ jobs:
         run: npm ci
 
       - name: Download blob reports from GitHub Actions Artifacts
-        uses: actions/download-artifact@v4 # ✅ v4 upgrade
+        uses: actions/download-artifact@v4  # ✅ v4 upgrade
         with:
           path: blob-reports
           pattern: blob-report-*
-          merge-multiple: true # ✅ Required in v4 to merge artifacts
+          merge-multiple: true  # ✅ Required in v4 to merge artifacts
 
       - name: Merge reports
         run: npx playwright merge-reports --reporter html ./blob-reports
 
       - name: Upload HTML report
-        uses: actions/upload-artifact@v4 # ✅ v4 upgrade
+        uses: actions/upload-artifact@v4  # ✅ v4 upgrade
         with:
           name: html-report
           path: playwright-report
@@ -86,16 +86,16 @@ jobs:
   performance-test:
     name: K6 Performance Test
     runs-on: ubuntu-latest
-    needs: test # Run after shard tests complete
-    if: always() # Run even if tests fail
-
+    needs: test  # Run after shard tests complete
+    if: always()  # Run even if tests fail
+    
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 # ✅ v4 upgrade
+        uses: actions/checkout@v4  # ✅ v4 upgrade
 
       - name: Run K6 Load Test
         uses: grafana/k6-action@v0.3.0
         with:
           filename: src/tests/performance/load-test.js
         env:
-          BASE_URL: ${{ secrets.BASE_URL }} # Pass env vars to K6
+          BASE_URL: ${{ secrets.BASE_URL }}  # Pass env vars to K6
