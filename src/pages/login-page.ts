@@ -71,11 +71,9 @@ export class LoginPage extends BasePage {
         await this.passwordInput.clear();
         await this.passwordInput.fill(password);
         
-        // ✅ Wait for button to be enabled before clicking
-        await this.loginButton.waitFor({ 
-            state: 'enabled', 
-            timeout: 5000 
-        });
+       // New – Recommended way (clean, readable, and officially supported)
+        await expect(this.loginButton).toBeEnabled({ timeout: 10000 });
+        
         
         await this.loginButton.click();
         
