@@ -13,7 +13,6 @@
   "lint": "eslint . --ext .ts",
   "lint:fix": "eslint . --ext .ts --fix",
   "merge-reports": "npx playwright merge-reports --reporter html ./blob-reports"
-}
   },
   "keywords": [
     "playwright",
