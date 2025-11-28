@@ -1,5 +1,5 @@
 import { test as base, Page } from '@playwright/test';
-import { LoginPage } from '../pages/login-page.js';
+import { LoginPage } from '../pages/login-page';
 
 type UserFixtures = {
     loginPage: LoginPage;
