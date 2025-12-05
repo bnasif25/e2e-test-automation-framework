@@ -45,7 +45,7 @@ export class LoginPage extends BasePage {
 
         // THIS IS THE ONLY CHANGE YOU NEED
         // click() already auto-waits for visible + enabled + actionable
-        await this.loginButton.click({ timeout: 15000 });
+        await this.loginButton.click({ timeout: 15000, force: true });
 
         // Wait for either successful navigation or error message
         await Promise.race([

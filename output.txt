@@ -1,0 +1,58 @@
+⚠️  STANDARD_USER not set, using default
+⚠️  PASSWORD not set, using default
+🔍 Fixture Environment Variables:
+STANDARD_USER: standard_user
+PASSWORD: ***
+
+Running 1 test using 1 worker
+
+🔍 Fixture Environment Variables:
+STANDARD_USER: standard_user
+PASSWORD: ***
+🎭 Setting up standard user session...
+2025-12-05 14:56:07 [info]: Logging in with user: standard_user
+2025-12-05 14:56:07 [info]: Login action completed
+2025-12-05 14:56:08 [info]: Adding product to cart: Sauce Labs Backpack
+!!! INVENTORY LIST NOT VISIBLE !!!
+Current URL: about:blank
+Page Content: <html><head></head><body></body></html>
+  ✘  1 [webkit] › src/tests/ui/regression/checkout-flow.spec.ts:9:5 › Checkout Flow @regression @critical › should complete checkout process successfully (6.3s)
+
+
+  1) [webkit] › src/tests/ui/regression/checkout-flow.spec.ts:9:5 › Checkout Flow @regression @critical › should complete checkout process successfully 
+
+    TimeoutError: locator.waitFor: Timeout 5000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.inventory_list') to be visible[22m
+
+
+       at ../pages/products-page.ts:27
+
+      25 |         // Debugging Webkit failure
+      26 |         try {
+    > 27 |             await this.inventoryList.waitFor({ state: 'visible', timeout: 5000 });
+         |                                      ^
+      28 |         } catch (e) {
+      29 |             console.log('!!! INVENTORY LIST NOT VISIBLE !!!');
+      30 |             console.log('Current URL:', this.page.url());
+        at ProductsPage.addProductToCart (/Users/nasif/Documents/e2e-test-automation-framework/src/pages/products-page.ts:27:38)
+        at /Users/nasif/Documents/e2e-test-automation-framework/src/tests/ui/regression/checkout-flow.spec.ts:16:28
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/ui-regression-checkout-flo-bb92c-eckout-process-successfully-webkit/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/ui-regression-checkout-flo-bb92c-eckout-process-successfully-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/ui-regression-checkout-flo-bb92c-eckout-process-successfully-webkit/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/ui-regression-checkout-flo-bb92c-eckout-process-successfully-webkit/error-context.md
+
+  1 failed
+    [webkit] › src/tests/ui/regression/checkout-flow.spec.ts:9:5 › Checkout Flow @regression @critical › should complete checkout process successfully 
+
+[36m  Serving HTML report at http://localhost:62214. Press Ctrl+C to quit.[39m

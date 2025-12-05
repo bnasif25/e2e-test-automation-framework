@@ -6,7 +6,8 @@ import { DataFactory } from '../../../utils/data-factory.js';
 import { TEST_DATA } from '../../../config/test-data.js';
 
 test.describe('Checkout Flow @regression @critical', () => {
-    test('should complete checkout process successfully', async ({ standardUserPage: _standardUserPage, page }) => {
+    test('should complete checkout process successfully', async ({ standardUserPage }) => {
+        const page = standardUserPage;
         const productsPage = new ProductsPage(page);
         const cartPage = new CartPage(page);
         const checkoutPage = new CheckoutPage(page);
