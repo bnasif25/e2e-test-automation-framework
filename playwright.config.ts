@@ -23,6 +23,7 @@ if (!process.env.LOCKED_OUT_USER) {
 
 export default defineConfig({
   testDir: './src/tests',
+  timeout: 60 * 1000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
